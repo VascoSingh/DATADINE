@@ -6,42 +6,39 @@ import Link from "next/link";
 
 
 export default function Home() {
-    const [data, setData] = useState({ text: "" });
-    const [query, setQuery] = useState();
-    const [search, setSearch] = useState();
-    const [num, setNum] = useState();
-    const [age, setAge] = useState();
-    const [bmi, setBMI] = useState();
-    const [isLoading, setIsLoading] = useState(false);
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            if (search) {
-                //setSearch('inventory: ' + search + '\n Number of People: ' + num + '\n Age: ' + age + '\n BMI: ' + bmi);
-                const searchQuery = `inventory: ${query}\n Number of People: ${num}\n Age: ${age}\n BMI: ${bmi}`;
-                console.log(search);
-                setIsLoading(true);
-                const res = await fetch(`/api/openai`, {
-                    body: JSON.stringify({
-                        name: searchQuery,
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    method: "POST",
-                });
-                console.log('res: ', res);
-                const data = await res.json();
-                setData(data);
-                setIsLoading(false);
-            }
-        };
-
-
-        fetchData();
-    }, [search]);
-    console.log('data.text:', data);
+  const [data, setData] = useState({ text: "" });
+  const [query, setQuery] = useState();
+  const [search, setSearch] = useState();
+  const [num, setNum] = useState();
+  const [age, setAge] = useState();
+  const [bmi, setBMI] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  
+  useEffect(() => {
+      const fetchData = async () => {
+          if (search) {
+              const searchQuery = `inventory: ${query}\n Number of People: ${num}\n Age: ${age}\n BMI: ${bmi}`;
+              console.log(searchQuery);
+              setIsLoading(true);
+              const res = await fetch(`/api/openai`, {
+                  body: JSON.stringify({
+                      name: searchQuery,
+                  }),
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  method: "POST",
+              });
+              console.log('res: ', res);
+              const data = await res.json();
+              setData(data);
+              setIsLoading(false);
+          }
+      };
+  
+      fetchData();
+  }, [search, query, num, age, bmi]);
+  console.log('data.text:', data);  
 
 
     return (
@@ -86,7 +83,7 @@ export default function Home() {
       
             <div className={styles.grid}>
               <div className={styles.mealPlanContainer}>
-                <h3>Input your foodbank's data:</h3>
+                <h3>Input your foodbank data:</h3>
                 <input
                   type="text"
                   value={query}
