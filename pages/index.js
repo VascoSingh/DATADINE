@@ -32,7 +32,6 @@ export default function Home() {
                     method: "POST",
                 });
                 console.log('res: ', res);
-                console.log('key: ', OPENAI_API_KEY);
                 const data = await res.json();
                 setData(data);
                 setIsLoading(false);
