@@ -40,7 +40,7 @@ export default function Home() {
 
 
         fetchData();
-    }, [search]);
+    }, [search, age, bmi, num, query]);
     //console.log('data.text:', data);
 
 
@@ -86,7 +86,7 @@ export default function Home() {
       
             <div className={styles.grid}>
               <div className={styles.mealPlanContainer}>
-                <h3>Input your foodbank's data:</h3>
+                <h3>Input your foodbank data:</h3>
                 <input
                   type="text"
                   value={query}
