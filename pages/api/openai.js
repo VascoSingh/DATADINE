@@ -1,5 +1,4 @@
 const OpenAI = require('openai-api');
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
 export default async (req, res) => {
   if (req.method === 'OPTIONS') {
@@ -10,6 +9,7 @@ export default async (req, res) => {
     console.log("Received name:", name);
     let prompt = `Current inventory of food at the foodbank. Here is the list, cater the recipe to number of people, age and BMI: ${name}\n\n RECIPE NAME: \n\nRECIPE STEPS: \n\nNUTRITION FACTS: `;
     // console.log(prompt);
+    const openai = new OpenAI(process.env.OPENAI_API_KEY);
     const gptResponse = await openai.complete({
       engine: 'text-davinci-003',
       prompt: prompt,
